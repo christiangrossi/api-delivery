@@ -35,7 +35,7 @@ const userSchema = new mongoose.Schema({
     }
 });
 const hashPassword = (obj, next) => {
-    bcrypt.hash(obj.getUpdate().password, environment_1.environment.security.saltRounds).then(hash => {
+    bcrypt.hash(obj.password, environment_1.environment.security.saltRounds).then(hash => {
         obj.password = hash;
         next();
     }).catch(next);
