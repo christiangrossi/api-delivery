@@ -1,15 +1,12 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_router_1 = require("../common/model-router");
-const users_model_1 = require("./users.model");
+const restaurantes_model_1 = require("./restaurantes.model");
 class UsersRouter extends model_router_1.ModelRouter {
     constructor() {
-        super(users_model_1.User);
-        this.path = '/usuarios';
+        super(restaurantes_model_1.Restaurante);
+        this.path = '/restaurantes';
         this.pathId = this.path + '/:id';
-        this.on('beforeRender', document => {
-            document.password = undefined;
-        });
     }
     applyRoutes(application) {
         application.get(this.path, this.findAll);
