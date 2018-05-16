@@ -3,7 +3,7 @@ import { Restaurante } from './restaurantes.model'
 import * as restify from 'restify'
 import { NotFoundError } from 'restify-errors'
 
-class UsersRouter extends ModelRouter<Restaurante> {
+class RestaurantesRouter extends ModelRouter<Restaurante> {
     private path: string = '/restaurantes'
     private pathId: string = this.path + '/:id'
 
@@ -21,4 +21,4 @@ class UsersRouter extends ModelRouter<Restaurante> {
     }
 }
 
-export const usersRouter = new UsersRouter()
+export const restaurantesRouter = new RestaurantesRouter()

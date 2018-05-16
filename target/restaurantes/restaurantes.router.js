@@ -2,7 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_router_1 = require("../common/model-router");
 const restaurantes_model_1 = require("./restaurantes.model");
-class UsersRouter extends model_router_1.ModelRouter {
+class RestaurantesRouter extends model_router_1.ModelRouter {
     constructor() {
         super(restaurantes_model_1.Restaurante);
         this.path = '/restaurantes';
@@ -17,4 +17,4 @@ class UsersRouter extends model_router_1.ModelRouter {
         application.del(this.pathId, [this.validateId, this.delete]);
     }
 }
-exports.usersRouter = new UsersRouter();
+exports.restaurantesRouter = new RestaurantesRouter();

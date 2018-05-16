@@ -6,6 +6,10 @@ const cardapioSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    imagePath: {
+        type: String,
+        required: false
+    },
     valor: {
         type: Number,
         required: true
@@ -15,6 +19,10 @@ const restSchema = new mongoose.Schema({
     nome: {
         type: String,
         required: true
+    },
+    imagePath: {
+        type: String,
+        required: false
     },
     cardapio: {
         type: [cardapioSchema],
