@@ -1,10 +1,22 @@
 import * as restify from 'restify'
+import * as mongoose from 'mongoose'
 import { environment } from '../common/environment';
 import { Router } from '../common/router'
+import { mergePatchBodyParser } from './merge-patch.parser'
+import { handleError } from './error.handler'
 
 export class Server {
 
     application: restify.Server
+
+    initializeDb() {
+        mongoose.Promise = global.Promise
+        return mongoose.connect(environment.db.url, {
+            useMongoClient: true
+        })
+
+    }
+
 
     initRoutes(routers: Router[]): Promise<any> {
         return new Promise((resolve, reject) => {
@@ -16,6 +28,11 @@ export class Server {
 
                 //plugin do restify para exibir os parametros
                 this.application.use(restify.plugins.queryParser())
+                //fazendo o parser do req body
+                this.application.use(restify.plugins.bodyParser())
+                //parser path+
+                this.application.use(mergePatchBodyParser)
+
 
                 //routes
                 for (let router of routers) {
@@ -55,7 +72,8 @@ export class Server {
                     resolve(this.application)
 
                 })
-                //o erro nao é tratado aqui pois queremos que a nossa aplic faça um crash
+
+                this.application.on('restifyError', handleError)
 
             } catch (error) {
                 reject(error);
@@ -65,7 +83,8 @@ export class Server {
 
 
     bootstrap(routers: Router[] = []): Promise<Server> {
-        return this.initRoutes(routers).then(() => this);
+        return this.initializeDb().then(() =>
+            this.initRoutes(routers).then(() => this));
     }
 
 
