@@ -6,7 +6,7 @@ const avaliacaoSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    taxa: {
+    classificacao: {
         type: Number,
         required: true
     },
@@ -26,4 +26,4 @@ const avaliacaoSchema = new mongoose.Schema({
         required: true
     }
 });
-const Avaliacao = mongoose.model('Avaliacao', avaliacaoSchema);
+exports.Avaliacao = mongoose.model('Avaliacao', avaliacaoSchema);

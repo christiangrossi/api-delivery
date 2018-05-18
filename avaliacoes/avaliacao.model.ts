@@ -4,7 +4,7 @@ import { Usuario } from '../usuarios/usuario.model';
 
 export interface Avaliacao extends mongoose.Document {
     data: Date,
-    taxa: number,
+    classificacao: number,
     comentarios: string,
     restaurante: mongoose.Types.ObjectId | Restaurante,
     usuario: mongoose.Types.ObjectId | Usuario
@@ -17,7 +17,7 @@ const avaliacaoSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    taxa: {
+    classificacao: {
         type: Number,
         required: true
     },
@@ -37,4 +37,4 @@ const avaliacaoSchema = new mongoose.Schema({
         required: true
     }
 })
-const Avaliacao = mongoose.model<Avaliacao>('Avaliacao', avaliacaoSchema)
+export const Avaliacao = mongoose.model<Avaliacao>('Avaliacao', avaliacaoSchema)

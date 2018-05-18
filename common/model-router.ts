@@ -3,6 +3,15 @@ import { NotFoundError } from 'restify-errors'
 import * as mongoose from 'mongoose'
 
 export abstract class ModelRouter<D extends mongoose.Document> extends Router {
+    constructor(protected model: mongoose.Model<D>) {
+        super()
+    }
+
+
+    protected prepareOne(query: mongoose.DOcumentQuery<D, D>) {
+        return query;
+    }
+
 
     validateId = (req, resp, next) => {
         if (!mongoose.Types.ObjectId.isValid(req.params.id)) {
@@ -12,15 +21,12 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
         }
     }
 
-    constructor(protected model: mongoose.Model<D>) {
-        super()
-    }
 
     findAll = (req, resp, next) => {
         this.model.find().then(this.renderAll(resp, next)).catch(next)
     }
     findById = (req, resp, next) => {
-        this.model.findById(req.params.id)
+       this.prepareOne(this.model.findById(req.params.id))
             .then(this.render(resp, next)).catch(next)
     }
 
