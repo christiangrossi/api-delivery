@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const environment_1 = require("../common/environment");
 const merge_patch_parser_1 = require("./merge-patch.parser");
 const error_handler_1 = require("./error.handler");
+const corsMiddleware = require("restify-cors-middleware");
 class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
@@ -19,6 +20,23 @@ class Server {
                     name: 'delivery-api',
                     version: '1.0.0'
                 });
+                /**
+                 * Cors Configuration
+                 *
+                  origins:['http://localhost:4200',]
+                    allowHeaders:['authorization']
+                    exposeHeaders:['x-custom-header']
+                 */
+                const corsOption = {
+                    preflightMaxAge: 86400,
+                    origins: ['*'],
+                    allowHeaders: ['*'],
+                    exposeHeaders: ['*']
+                };
+                const cors = corsMiddleware(corsOption);
+                this.application.pre(cors.preflight);
+                //responde req normais
+                this.application.pre(cors.actual);
                 //plugin do restify para exibir os parametros
                 this.application.use(restify.plugins.queryParser());
                 //fazendo o parser do req body
