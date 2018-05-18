@@ -9,7 +9,7 @@ class RestaurantesRouter extends model_router_1.ModelRouter {
         this.pathId = this.path + '/:id';
     }
     applyRoutes(application) {
-        application.get(this.path, this.findAll);
+        application.get('/restaurantes', this.findAll);
         application.get(this.pathId, [this.validateId, this.findById]);
         application.post(this.path, this.save);
         application.put(this.pathId, [this.validateId, this.replace]);

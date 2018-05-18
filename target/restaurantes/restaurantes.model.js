@@ -20,8 +20,24 @@ const restSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    descricao: {
+        type: String,
+        required: true
+    },
     imagePath: {
         type: String,
+        required: false
+    },
+    categoria: {
+        type: String,
+        required: false
+    },
+    tempoEstimado: {
+        type: String,
+        required: false
+    },
+    avaliacao: {
+        type: Number,
         required: false
     },
     cardapio: {
