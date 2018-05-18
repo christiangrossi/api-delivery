@@ -11,13 +11,45 @@ class RestaurantesRouter extends ModelRouter<Restaurante> {
         super(Restaurante)
     }
 
+    findCardapio = (req, resp, next) => {
+        Restaurante.findById(req.params.id, "+cardapio").then(
+            rest => {
+                if (!rest) {
+                    throw new NotFoundError('Restaurante não encontrado')
+                } else {
+                    resp.json(rest.cardapio)
+                    return next()
+                }
+            }).catch(next)
+    }
+
+    replaceCardapio = (req, resp, next) => {
+        Restaurante.findById(req.params.id).then(rest => {
+            if (!rest) {
+                throw new NotFoundError('Restaurante não encontrado')
+            } else {
+                rest.cardapio = req.body
+                return rest.save()
+            }
+        }).then(rest => {
+            resp.json(rest.menu)
+        }).catch(next)
+
+    }
+
+
+
+
     applyRoutes(application: restify.Server) {
-        application.get('/restaurantes', this.findAll)
+        application.get(this.path, this.findAll)
         application.get(this.pathId, [this.validateId, this.findById])
         application.post(this.path, this.save)
         application.put(this.pathId, [this.validateId, this.replace])
         application.patch(this.pathId, [this.validateId, this.update])
         application.del(this.pathId, [this.validateId, this.delete])
+
+        application.get(this.pathId + '/cardapio', [this.validateId, this.findCardapio])
+        application.put(this.pathId + '/cardapio', [this.validateId, this.replaceCardapio])
     }
 }
 

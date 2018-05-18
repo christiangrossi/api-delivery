@@ -1,10 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const model_router_1 = require("../common/model-router");
-const users_model_1 = require("./users.model");
-class UsersRouter extends model_router_1.ModelRouter {
+const usuario_model_1 = require("./usuario.model");
+class UsuarioRouter extends model_router_1.ModelRouter {
     constructor() {
-        super(users_model_1.User);
+        super(usuario_model_1.Usuario);
         this.path = '/usuarios';
         this.pathId = this.path + '/:id';
         this.on('beforeRender', document => {
@@ -20,4 +20,4 @@ class UsersRouter extends model_router_1.ModelRouter {
         application.del(this.pathId, [this.validateId, this.delete]);
     }
 }
-exports.usersRouter = new UsersRouter();
+exports.usuarioRouter = new UsuarioRouter();

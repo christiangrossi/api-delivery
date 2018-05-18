@@ -4,8 +4,8 @@ const mongoose = require("mongoose");
 const validators_1 = require("../common/validators");
 const bcrypt = require("bcrypt");
 const environment_1 = require("../common/environment");
-const userSchema = new mongoose.Schema({
-    name: {
+const usuarioSchema = new mongoose.Schema({
+    nome: {
         type: String,
         required: true,
         maxlength: 80,
@@ -20,7 +20,7 @@ const userSchema = new mongoose.Schema({
         select: false,
         required: true
     },
-    gender: {
+    genero: {
         type: String,
         required: false,
         enum: ['Male', 'Female']
@@ -45,14 +45,14 @@ const hashPassword = (obj, next) => {
  *
  * @param next
  */
-// nao user arrow function  pois nao conseguiriamos pegar this dinamicamente
+// nao Usuario arrow function  pois nao conseguiriamos pegar this dinamicamente
 const saveMiddleware = function (next) {
-    const user = this;
-    if (!user.isModified('password')) {
+    const usuario = this;
+    if (!usuario.isModified('password')) {
         next();
     }
     else {
-        hashPassword(user, next);
+        hashPassword(usuario, next);
     }
 };
 /**
@@ -68,9 +68,9 @@ const updateMiddleware = function (next) {
         hashPassword(this.getUpdate(), next);
     }
 };
-// nao user arrow function  pois nao conseguiriamos pegar this dinamicamente
-userSchema.pre('save', saveMiddleware);
-userSchema.pre('FindOneAndUpdate', updateMiddleware);
-userSchema.pre('update', updateMiddleware);
+// nao usuario arrow function  pois nao conseguiriamos pegar this dinamicamente
+usuarioSchema.pre('save', saveMiddleware);
+usuarioSchema.pre('FindOneAndUpdate', updateMiddleware);
+usuarioSchema.pre('update', updateMiddleware);
 //ele ja identifica o plural
-exports.User = mongoose.model('User', userSchema);
+exports.Usuario = mongoose.model('Usuario', usuarioSchema);
