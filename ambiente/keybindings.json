@@ -102,6 +102,10 @@
     {
         "key": "ctrl+shift+c",
         "command": "editor.action.commentLine"
+    },
+     {
+        "key": "ctrl+shift+f",
+        "command": "editor.action.formatDocument"
     }
 
 ]
