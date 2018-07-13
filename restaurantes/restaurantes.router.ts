@@ -40,9 +40,9 @@ class RestaurantesRouter extends ModelRouter<Restaurante> {
     findWithParameters = (req, resp, next) => {
         let parameters = req.query;
         if (parameters == undefined || parameters == null) {
-            return this.findAll(req, resp, next);
+            Restaurante.findAll(req, resp, next);
         } else {
-            // Restaurante.find({ 'nome': { $regex: parameters.nome, $options: 'i' } }).then(this.renderAll(resp, next)).catch(next);
+            Restaurante.find({ 'nome': { $regex: parameters.nome, $options: 'i' } }).then(this.renderAll(resp, next)).catch(next);
         }
     }
 
