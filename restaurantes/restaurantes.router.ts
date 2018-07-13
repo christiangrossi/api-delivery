@@ -5,6 +5,7 @@ import { NotFoundError } from 'restify-errors'
 
 class RestaurantesRouter extends ModelRouter<Restaurante> {
     private path: string = '/restaurantes'
+
     private pathId: string = this.path + '/:id'
 
     constructor() {
@@ -15,10 +16,10 @@ class RestaurantesRouter extends ModelRouter<Restaurante> {
         Restaurante.findById(req.params.id, "+cardapio").then(
             rest => {
                 if (!rest) {
-                    throw new NotFoundError('Restaurante não encontrado')
+                    throw new NotFoundError('Restaurante não encontrado');
                 } else {
-                    resp.json(rest.cardapio)
-                    return next()
+                    resp.json(rest.cardapio);
+                    return next();
                 }
             }).catch(next)
     }
@@ -26,21 +27,20 @@ class RestaurantesRouter extends ModelRouter<Restaurante> {
     replaceCardapio = (req, resp, next) => {
         Restaurante.findById(req.params.id).then(rest => {
             if (!rest) {
-                throw new NotFoundError('Restaurante não encontrado')
+                throw new NotFoundError('Restaurante não encontrado');
             } else {
                 rest.cardapio = req.body
-                return rest.save()
+                return rest.save();
             }
         }).then(rest => {
-            resp.json(rest.menu)
+            resp.json(rest.menu);
         }).catch(next)
     }
 
-
     findWithParameters = (req, resp, next) => {
         let parameters = req.query;
-        if (parameters == undefined || parameters == null) {
-            Restaurante.findAll(req, resp, next);
+        if (Object.keys(parameters).length === 0) {
+            this.findAll(req, resp, next);
         } else {
             Restaurante.find({ 'nome': { $regex: parameters.nome, $options: 'i' } }).then(this.renderAll(resp, next)).catch(next);
         }
