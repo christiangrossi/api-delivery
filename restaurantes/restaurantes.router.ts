@@ -47,15 +47,15 @@ class RestaurantesRouter extends ModelRouter<Restaurante> {
     }
 
     applyRoutes(application: restify.Server) {
-        application.get(this.path, this.findWithParameters)
-        application.get(this.pathId, [this.validateId, this.findById])
-        application.post(this.path, this.save)
-        application.put(this.pathId, [this.validateId, this.replace])
-        application.patch(this.pathId, [this.validateId, this.update])
-        application.del(this.pathId, [this.validateId, this.delete])
+        application.get(this.path, this.findWithParameters);
+        application.get(this.pathId, [this.validateId, this.findById]);
+        application.post(this.path, this.save);
+        application.put(this.pathId, [this.validateId, this.replace]);
+        application.patch(this.pathId, [this.validateId, this.update]);
+        application.del(this.pathId, [this.validateId, this.delete]);
 
-        application.get(this.pathId + '/cardapio', [this.validateId, this.findCardapio])
-        application.put(this.pathId + '/cardapio', [this.validateId, this.replaceCardapio])
+        application.get(this.pathId + '/cardapio', [this.validateId, this.findCardapio]);
+        application.put(this.pathId + '/cardapio', [this.validateId, this.replaceCardapio]);
     }
 }
 
