@@ -38,7 +38,7 @@ class RestaurantesRouter extends model_router_1.ModelRouter {
                 return this.findAll(req, resp, next);
             }
             else {
-                restaurantes_model_1.Restaurante.find({ 'nome': { $regex: parameters.nome, $options: 'i' } }).then(this.renderAll(resp, next)).catch(next);
+                // Restaurante.find({ 'nome': { $regex: parameters.nome, $options: 'i' } }).then(this.renderAll(resp, next)).catch(next);
             }
         };
     }
