@@ -7,7 +7,6 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
         super()
     }
 
-
     protected prepareOne(query: mongoose.DOcumentQuery<D, D>) {
         return query;
     }
@@ -21,12 +20,11 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
         }
     }
 
-
     findAll = (req, resp, next) => {
         this.model.find().then(this.renderAll(resp, next)).catch(next)
     }
     findById = (req, resp, next) => {
-       this.prepareOne(this.model.findById(req.params.id))
+        this.prepareOne(this.model.findById(req.params.id))
             .then(this.render(resp, next)).catch(next)
     }
 

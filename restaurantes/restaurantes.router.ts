@@ -34,14 +34,20 @@ class RestaurantesRouter extends ModelRouter<Restaurante> {
         }).then(rest => {
             resp.json(rest.menu)
         }).catch(next)
-
     }
 
 
-
+    findWithParameters = (req, resp, next) => {
+        let parameters = req.query;
+        if (parameters == undefined || parameters == null) {
+            return this.findAll(req, resp, next);
+        } else {
+            Restaurante.find({ 'nome': { $regex: parameters.nome, $options: 'i' } }).then(this.renderAll(resp, next)).catch(next);
+        }
+    }
 
     applyRoutes(application: restify.Server) {
-        application.get(this.path, this.findAll)
+        application.get(this.path, this.findWithParameters)
         application.get(this.pathId, [this.validateId, this.findById])
         application.post(this.path, this.save)
         application.put(this.pathId, [this.validateId, this.replace])

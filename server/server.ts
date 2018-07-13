@@ -38,7 +38,7 @@ export class Server {
                     preflightMaxAge: 86400,
                     origins: ['*'],
                     allowHeaders: ['*'],
-                    exposeHeaders:['*']
+                    exposeHeaders: ['*']
                 }
 
                 const cors: corsMiddleware.CorsMiddleware = corsMiddleware(corsOption);
@@ -49,9 +49,9 @@ export class Server {
                 //responde req normais
                 this.application.pre(cors.actual)
                 //plugin do restify para exibir os parametros
-                this.application.use(restify.plugins.queryParser())
+                this.application.use(restify.plugins.queryParser());
                 //fazendo o parser do req body
-                this.application.use(restify.plugins.bodyParser())
+                this.application.use(restify.plugins.bodyParser());
                 //parser path+
                 this.application.use(mergePatchBodyParser)
 

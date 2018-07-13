@@ -32,9 +32,18 @@ class RestaurantesRouter extends model_router_1.ModelRouter {
                 resp.json(rest.menu);
             }).catch(next);
         };
+        this.findWithParameters = (req, resp, next) => {
+            let parameters = req.query;
+            if (parameters == undefined || parameters == null) {
+                return this.findAll(req, resp, next);
+            }
+            else {
+                restaurantes_model_1.Restaurante.find({ 'nome': { $regex: parameters.nome, $options: 'i' } }).then(this.renderAll(resp, next)).catch(next);
+            }
+        };
     }
     applyRoutes(application) {
-        application.get(this.path, this.findAll);
+        application.get(this.path, this.findWithParameters);
         application.get(this.pathId, [this.validateId, this.findById]);
         application.post(this.path, this.save);
         application.put(this.pathId, [this.validateId, this.replace]);

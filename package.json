@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node target/main.js",
+    "compile":"tsc -w",
+    "start": "tsc ; node target/main.js",
     "test": "echo \"Error: nenhum teste implementado\" && exit 1"
   },
   "keywords": [],
