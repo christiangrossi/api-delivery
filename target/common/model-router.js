@@ -45,7 +45,7 @@ class ModelRouter extends router_1.Router {
                 .then(this.render(resp, next)).catch(next);
         };
         this.delete = (req, resp, next) => {
-            this.model.remove({ _id: req.params.id }).exec().then(cmdResult => {
+            this.model.remove({ _id: req.params.id }).exec().then((cmdResult) => {
                 if (cmdResult.result.n) {
                     resp.send(204);
                 }

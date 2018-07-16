@@ -29,7 +29,7 @@ class RestaurantesRouter extends model_router_1.ModelRouter {
                     return rest.save();
                 }
             }).then(rest => {
-                resp.json(rest.menu);
+                resp.json(rest.cardapio);
             }).catch(next);
         };
         this.findWithParameters = (req, resp, next) => {

@@ -23,8 +23,8 @@ export interface Restaurante extends mongoose.Document {
     facebook?: string;
     instagram?: string;
     whatsapp?: string;
-    telefone?: string;
-    email?: string;
+    telefone: string;
+    email: string;
     cardapio?: Produto[]
 }
 

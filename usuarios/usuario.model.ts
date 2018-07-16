@@ -17,12 +17,14 @@ const usuarioSchema = new mongoose.Schema({
         required: true,
         maxlength: 80,
         minlength: 3
-    }, email: {
+    },
+    email: {
         type: String,
         unique: true,
         match: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
         required: true
-    }, password: {
+    },
+    password: {
         type: String,
         select: false,
         required: true
@@ -79,11 +81,11 @@ const updateMiddleware = function (next) {
 }
 
 
-// nao usuario arrow function  pois nao conseguiriamos pegar this dinamicamente
+// nao usuario arrow function  pois nao conseguiriamos pegar this dinamicamente devido ao escopo lexico
 usuarioSchema.pre('save', saveMiddleware)
 usuarioSchema.pre('FindOneAndUpdate', updateMiddleware)
 usuarioSchema.pre('update', updateMiddleware)
 
 
 //ele ja identifica o plural
-export const Usuario = mongoose.model('Usuario', usuarioSchema)
+export const Usuario = mongoose.model<Usuario>('Usuario', usuarioSchema)

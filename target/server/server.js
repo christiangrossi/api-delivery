@@ -9,9 +9,7 @@ const corsMiddleware = require("restify-cors-middleware");
 class Server {
     initializeDb() {
         mongoose.Promise = global.Promise;
-        return mongoose.connect(environment_1.environment.db.url, {
-            useMongoClient: true
-        });
+        return mongoose.connect(environment_1.environment.db.url);
     }
     initRoutes(routers) {
         return new Promise((resolve, reject) => {

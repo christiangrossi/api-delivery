@@ -7,7 +7,7 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
         super()
     }
 
-    protected prepareOne(query: mongoose.DOcumentQuery<D, D>) {
+    protected prepareOne(query: mongoose.DocumentQuery<D, D>) {
         return query;
     }
 
@@ -53,13 +53,13 @@ export abstract class ModelRouter<D extends mongoose.Document> extends Router {
     }
 
     delete = (req, resp, next) => {
-        this.model.remove({ _id: req.params.id }).exec().then(cmdResult => {
+        this.model.remove({ _id: req.params.id }).exec().then((cmdResult: any) => {
             if (cmdResult.result.n) {
-                resp.send(204)
+                resp.send(204);
             } else {
-                throw new NotFoundError('Documento não encontrado')
+                throw new NotFoundError('Documento não encontrado');
             }
-            return next()
+            return next();
         }).catch(next)
     }
 

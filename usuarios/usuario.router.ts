@@ -8,7 +8,7 @@ class UsuarioRouter extends ModelRouter<Usuario> {
     private pathId: string = this.path + '/:id'
 
     constructor() {
-        super(Usuario)
+        super(Usuario);
         this.on('beforeRender', document => {
             document.password = undefined
         })
