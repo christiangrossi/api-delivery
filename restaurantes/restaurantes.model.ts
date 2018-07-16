@@ -25,7 +25,7 @@ export interface Restaurante extends mongoose.Document {
     whatsapp?: string;
     telefone?: string;
     email?: string;
-    cardapio: Produto[]
+    cardapio?: Produto[]
 }
 
 const cardapioSchema = new mongoose.Schema({
