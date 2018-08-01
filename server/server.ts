@@ -7,7 +7,7 @@ import { handleError } from './error.handler'
 import * as corsMiddleware from 'restify-cors-middleware'
 
 export class Server {
-
+    // 
     application: restify.Server
 
     initializeDb() {
