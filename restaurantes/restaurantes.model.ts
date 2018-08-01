@@ -14,7 +14,7 @@ export interface Restaurante extends mongoose.Document {
     descricao: string;
     categoria: string;
     tempoEstimado: number;
-    avaliacao: number;
+    avaliacao?: number;
     imagePath: string;
     estado?: string;
     cidade?: string;
@@ -67,7 +67,7 @@ const restSchema = new mongoose.Schema({
     },
     avaliacao: {
         type: Number,
-        required: true
+        required: false
     },
     estado: {
         type: String,
